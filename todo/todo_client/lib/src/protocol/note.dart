@@ -1,4 +1,3 @@
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
@@ -9,6 +8,7 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 // ignore_for_file: type_literal_in_constant_pattern
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 /// Holds a note with a text written by the user.
 abstract class Note extends _i1.SerializableEntity {
