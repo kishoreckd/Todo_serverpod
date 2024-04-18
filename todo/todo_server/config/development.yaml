@@ -30,9 +30,9 @@ webServer:
 # This is the database setup for your server.
 database:
   host: localhost
-  port: 8090
+  port: 5432
   name: todo
-  user: postgres
+  user: todo
 
 # This is the setup for Redis.
 redis:
