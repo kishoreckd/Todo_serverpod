@@ -85,6 +85,24 @@ class Endpoints extends _i1.EndpointDispatch {
             params['note'],
           ),
         ),
+        'updateNote': _i1.MethodConnector(
+          name: 'updateNote',
+          params: {
+            'note': _i1.ParameterDescription(
+              name: 'note',
+              type: _i1.getType<_i4.Note>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['notes'] as _i3.NotesEndpoint).updateNote(
+            session,
+            params['note'],
+          ),
+        ),
         'deleteNote': _i1.MethodConnector(
           name: 'deleteNote',
           params: {

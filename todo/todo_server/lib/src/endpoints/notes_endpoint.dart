@@ -15,6 +15,10 @@ class NotesEndpoint extends Endpoint {
     await Note.db.insertRow(session, note);
   }
 
+  Future<void> updateNote(Session session, Note note) async {
+    await Note.db.updateRow(session, note);
+  }
+
   Future<void> deleteNote(Session session, Note note) async {
     await Note.db.deleteRow(session, note);
   }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+t import 'package:flutter/material.dart';
 import 'package:todo_client/todo_client.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -153,11 +153,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Serverpod Demo',
+      title: 'Note APP',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Serverpod Example'),
+      home: const MyHomePage(title: 'Notes App'),
     );
   }
 }
@@ -183,6 +183,15 @@ class _MyHomePageState extends State<MyHomePage> {
       _notes = null;
       _connectionException = exception;
     });
+  }
+
+  Future<void> _updateNote(Note note) async {
+    try {
+      await client.notes.updateNote(note);
+      await _loadNotes();
+    } catch (e) {
+      _connectionFailed(e);
+    }
   }
 
   Future<void> _loadNotes() async {
@@ -220,6 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _loadNotes();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -246,13 +256,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   background: Container(
                     color: Colors.red,
                     alignment: Alignment.centerRight,
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Icon(Icons.delete, color: Colors.white),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
                   child: ListTile(
                     title: Text(note.text),
-                    trailing:
-                        Icon(Icons.drag_handle), // You can change this icon
+                    trailing: const Icon(Icons.drag_handle),
+                    onTap: () async {
+                      final updatedText = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditNoteScreen(note: note),
+                        ),
+                      );
+                      // print(updatedText);
+
+                      if (updatedText != null) {
+                        // Update the note
+                        note.text = updatedText;
+                        _updateNote(note);
+                      }
+                    },
                   ),
                 );
               },
@@ -331,6 +355,47 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text('Save'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class EditNoteScreen extends StatefulWidget {
+  final Note note;
+
+  const EditNoteScreen({super.key, required this.note});
+
+  @override
+  EditNoteScreenState createState() => EditNoteScreenState();
+}
+
+class EditNoteScreenState extends State<EditNoteScreen> {
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController(text: widget.note.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Note'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TextField(
+          controller: _textEditingController,
+          decoration: const InputDecoration(hintText: 'Enter your note'),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pop(_textEditingController.text);
+        },
+        child: const Icon(Icons.save),
       ),
     );
   }

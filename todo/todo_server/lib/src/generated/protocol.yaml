@@ -3,4 +3,5 @@ example:
 notes:
   - getAllNotes:
   - createNote:
+  - updateNote:
   - deleteNote:
