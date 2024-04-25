@@ -4,12 +4,23 @@ import 'package:todo_flutter/l10n/l10n.dart';
 import 'package:todo_client/todo_client.dart';
 import 'package:todo_flutter/counter/counter.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
+    super.initState();
+    final client = GetIt.I<Client>();
+    client.example.hello('name').then(print);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(GetIt.I<Client>());
     return MaterialApp(
       theme: ThemeData(
         appBarTheme: AppBarTheme(
