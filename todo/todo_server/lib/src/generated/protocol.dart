@@ -12,9 +12,11 @@ library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixe
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'package:serverpod_auth_server/module.dart' as _i3;
-import 'example.dart' as _i4;
-import 'note.dart' as _i5;
-import 'package:todo_server/src/generated/note.dart' as _i6;
+import 'channel.dart' as _i4;
+import 'example.dart' as _i5;
+import 'note.dart' as _i6;
+import 'package:todo_server/src/generated/note.dart' as _i7;
+export 'channel.dart';
 export 'example.dart';
 export 'note.dart';
 
@@ -28,6 +30,50 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
+    _i2.TableDefinition(
+      name: 'channel',
+      dartName: 'Channel',
+      schema: 'public',
+      module: 'todo',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'channel_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'channel',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'channel_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     _i2.TableDefinition(
       name: 'note',
       dartName: 'Note',
@@ -79,20 +125,26 @@ class Protocol extends _i1.SerializationManagerServer {
     if (customConstructors.containsKey(t)) {
       return customConstructors[t]!(data, this) as T;
     }
-    if (t == _i4.Example) {
-      return _i4.Example.fromJson(data, this) as T;
+    if (t == _i4.Channel) {
+      return _i4.Channel.fromJson(data, this) as T;
     }
-    if (t == _i5.Note) {
-      return _i5.Note.fromJson(data, this) as T;
+    if (t == _i5.Example) {
+      return _i5.Example.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i4.Example?>()) {
-      return (data != null ? _i4.Example.fromJson(data, this) : null) as T;
+    if (t == _i6.Note) {
+      return _i6.Note.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i5.Note?>()) {
-      return (data != null ? _i5.Note.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i4.Channel?>()) {
+      return (data != null ? _i4.Channel.fromJson(data, this) : null) as T;
     }
-    if (t == List<_i6.Note>) {
-      return (data as List).map((e) => deserialize<_i6.Note>(e)).toList()
+    if (t == _i1.getType<_i5.Example?>()) {
+      return (data != null ? _i5.Example.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i6.Note?>()) {
+      return (data != null ? _i6.Note.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i7.Note>) {
+      return (data as List).map((e) => deserialize<_i7.Note>(e)).toList()
           as dynamic;
     }
     try {
@@ -111,10 +163,13 @@ class Protocol extends _i1.SerializationManagerServer {
     if (className != null) {
       return 'serverpod_auth.$className';
     }
-    if (data is _i4.Example) {
+    if (data is _i4.Channel) {
+      return 'Channel';
+    }
+    if (data is _i5.Example) {
       return 'Example';
     }
-    if (data is _i5.Note) {
+    if (data is _i6.Note) {
       return 'Note';
     }
     return super.getClassNameForObject(data);
@@ -126,11 +181,14 @@ class Protocol extends _i1.SerializationManagerServer {
       data['className'] = data['className'].substring(15);
       return _i3.Protocol().deserializeByClassName(data);
     }
+    if (data['className'] == 'Channel') {
+      return deserialize<_i4.Channel>(data['data']);
+    }
     if (data['className'] == 'Example') {
-      return deserialize<_i4.Example>(data['data']);
+      return deserialize<_i5.Example>(data['data']);
     }
     if (data['className'] == 'Note') {
-      return deserialize<_i5.Note>(data['data']);
+      return deserialize<_i6.Note>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -150,8 +208,10 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i5.Note:
-        return _i5.Note.t;
+      case _i4.Channel:
+        return _i4.Channel.t;
+      case _i6.Note:
+        return _i6.Note.t;
     }
     return null;
   }

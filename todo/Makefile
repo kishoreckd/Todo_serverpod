@@ -5,6 +5,9 @@ server:
 generate:
 	@cd todo_server && serverpod generate
 
+migration:
+	@cd todo_server && serverpod create-migration
+
 app_build:
 	@cd todo_flutter && flutter run build_runner build --delete-conflicting-outputs
 app_run:
