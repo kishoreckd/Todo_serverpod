@@ -18,6 +18,8 @@ dependencies:
   injectable: ^2.4.1
   injectable_generator: ^2.6.1
   intl: ^0.18.1
+  serverpod_auth_email_flutter: ^1.2.6
+  serverpod_auth_shared_flutter: ^1.2.6
   serverpod_flutter: 1.2.6
   todo_client:
     path: ../todo_client

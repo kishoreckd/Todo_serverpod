@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:todo_flutter/l10n/l10n.dart';
 import 'package:todo_client/todo_client.dart';
 import 'package:todo_flutter/counter/counter.dart';
-
+import 'package:todo_flutter/login/login_page.dart';
 class App extends StatefulWidget {
+
   const App({super.key});
 
   @override
@@ -30,7 +31,7 @@ class _AppState extends State<App> {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const LogInPage(),
     );
   }
 }
