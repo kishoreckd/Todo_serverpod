@@ -1,5 +1,7 @@
 migrate:
 	@cd todo_server && dart run bin/main.dart --role maintenance --apply-migrations
+server:
+	@cd todo_server && dart bin/main.dart
 generate:
 	@cd todo_server && serverpod generate
 

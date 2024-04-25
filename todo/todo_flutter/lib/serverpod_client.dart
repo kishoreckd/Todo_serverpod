@@ -3,6 +3,7 @@ import 'package:todo_client/todo_client.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+
 @module
 abstract class RegisterModule {
   @lazySingleton
@@ -18,4 +19,6 @@ abstract class RegisterModule {
     );
     return sessionManager;
   }
+
+  
 }

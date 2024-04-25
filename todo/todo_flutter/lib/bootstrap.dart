@@ -31,11 +31,12 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  await GetIt.I<SessionManager>().initialize();
   // final client = Client('http://localhost:8080/')
   //   ..connectivityMonitor = FlutterConnectivityMonitor();
   // Add cross-flavor configuration here
   configureDependencies();
+  await GetIt.I<SessionManager>()
+  ..initialize();
 
   runApp(await builder());
 }

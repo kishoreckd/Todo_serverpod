@@ -17,7 +17,6 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     final client = GetIt.I<Client>();
-    client.example.hello('name').then(print);
   }
 
   @override
